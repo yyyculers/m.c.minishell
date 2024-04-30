@@ -6,11 +6,11 @@
 /*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 16:43:36 by ychiba            #+#    #+#             */
-/*   Updated: 2024/03/24 20:00:15 by ychiba           ###   ########.fr       */
+/*   Updated: 2024/04/29 15:22:27 by ychiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../includes/minishell.h"
 
 int	word_count(char *s)
 {

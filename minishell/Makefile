@@ -1,37 +1,39 @@
 NAME = minishell
-CC = cc
+CC = CC
+RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
-INC_DIR = inc
+INCLUDES_DIR = ./includes
+BUILTIN_DIR = ./srcs/built_in
 
 SRCS = srcs/main.c \
 	   srcs/minishell_split.c \
-       srcs/commands.c \
-       srcs/builtin/chdir.c \
-       srcs/builtin/exit.c \
-	   srcs/builtin/pwd.c \
+       $(BUILTIN_DIR)/chdir.c \
+       $(BUILTIN_DIR)/exit.c \
+	   $(BUILTIN_DIR)/pwd.c \
+	   $(BUILTIN_DIR)/commands.c \
+	   $(BUILTIN_DIR)/echo.c \
+	   $(BUILTIN_DIR)/env.c \
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:%.c=%.o)
 
-LIBFTDIR = srcs/libft
+LIBFTDIR = libft
 LIBFT = $(LIBFTDIR)/libft.a
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) -lreadline
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFTDIR)
 
-%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
-
 clean:
-	$(MAKE) fclean -C $(LIBFTDIR)
-	rm -f $(OBJS)
+	$(MAKE) clean -C $(LIBFTDIR)
+	$(RM) $(OBJS)
 
 fclean: clean
-	rm -f $(NAME) $(LIBFT)
+	$(MAKE) fclean -C $(LIBFTDIR)
+	$(RM) $(NAME) $(LIBFT)
 
 re: fclean all
 

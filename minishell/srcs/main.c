@@ -6,11 +6,11 @@
 /*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:29:08 by ychiba            #+#    #+#             */
-/*   Updated: 2024/04/25 18:13:33 by ychiba           ###   ########.fr       */
+/*   Updated: 2024/04/30 19:06:50 by ychiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../includes/minishell.h"
 
 void	ft_free_args(t_args *args)
 {
@@ -40,8 +40,7 @@ int	main_loop(void)
 
 	args = NULL;
 	status = 1;
-	//status = 1ならループ抜けない
-	while (status)
+	while (1)
 	{
 		input = readline("minishell> ");
 		if (!input)
@@ -56,10 +55,12 @@ int	main_loop(void)
 		}
 		args->argv = minishell_split(input);
 		status = execute_com(args);
+		if (status != 1)
+			break ;
 		free(input);
 		ft_free_args(args);
 	}
-	return ()
+	return (status);
 }
 
 int	main(void)
@@ -67,6 +68,6 @@ int	main(void)
 	int		status;
 
 	status = 0;
-	main_loop();
-	return (retu->retu);
+	status = main_loop();
+	return (status);
 }
