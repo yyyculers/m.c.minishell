@@ -1,7 +1,7 @@
 NAME = minishell
 CC = CC
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(shell brew --prefix readline)/include
 INCLUDES_DIR = ./includes
 BUILTIN_DIR = ./srcs/built_in
 
@@ -22,7 +22,7 @@ LIBFT = $(LIBFTDIR)/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) -lreadline -L$(shell brew --prefix readline)/lib
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFTDIR)

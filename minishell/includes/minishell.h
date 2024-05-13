@@ -6,7 +6,7 @@
 /*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:17:06 by ychiba            #+#    #+#             */
-/*   Updated: 2024/04/29 18:22:13 by ychiba           ###   ########.fr       */
+/*   Updated: 2024/05/07 17:43:59 by ychiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 # define MINISHELL_H
 
 # include <sys/wait.h>
+# include <signal.h>
+# include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "../libft/libft.h"
 
 typedef struct s_split
 {
@@ -32,6 +33,14 @@ typedef struct s_args
 	int		argc;
 	char	**argv;
 }	t_args;
+
+typedef struct s_env
+{
+	char				*env_name;
+	char				*env_val;
+	struct s_env				*next;
+	struct s_env				*prev;
+}	t_env;
 
 int		execute_com(t_args	*args);
 int		exe_exit(t_args *args);
