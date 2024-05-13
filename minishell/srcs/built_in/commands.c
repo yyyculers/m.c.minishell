@@ -29,9 +29,9 @@ int	execute_com(t_args	*args)
 		return (exe_echo(*args));
 	if (ft_strncmp(args->argv[0], "env", 4) == 0)
 		return (exe_env());
-	// if (ft_strncmp(args->argv[0], "export", 7) == 0)
-	// 	return (exe_export());
-	// if (ft_strncmp(args->argv[0], "unset", 6) == 0)
-	// 	return (exe_unset());
+	if (ft_strncmp(args->argv[0], "export", 7) == 0)
+		return (exe_export());
+	if (ft_strncmp(args->argv[0], "unset", 6) == 0)
+		return (exe_unset());
 	return (1);
 }
