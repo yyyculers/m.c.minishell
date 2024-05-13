@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 16:52:37 by ychiba            #+#    #+#             */
-/*   Updated: 2023/06/16 14:43:01 by ychiba           ###   ########.fr       */
+/*   Created: 2024/04/25 20:06:52 by ktakamat          #+#    #+#             */
+/*   Updated: 2024/04/25 20:07:37 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putchar(int c)
+void	ft_exit(void)
 {
-	int	count;
-
-	count = write(1, &c, 1);
-	return (count);
+	ft_printf("Error\n");
+	exit(EXIT_FAILURE);
 }

@@ -3,63 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: machi <machi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 16:19:57 by ychiba            #+#    #+#             */
-/*   Updated: 2024/04/29 15:27:43 by ychiba           ###   ########.fr       */
+/*   Created: 2023/05/18 18:03:09 by ktakamat          #+#    #+#             */
+/*   Updated: 2024/04/09 15:45:21 by machi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isspace(char a)
+int	ft_isspace(const char c)
 {
-	if ((9 <= a && a <= 13) || a == 32)
+	if (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\f' || c == '\r' || c == '\v')
+	{
 		return (1);
-	return (0);
-}
-
-long int	ft_check_intlong(const char *nptr, int sign, size_t i)
-{
-	long int	result;
-
-	result = 0;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		if (((result * sign == LONG_MAX / 10)
-				&& ((nptr[i] - '0') > LONG_MAX % 10))
-			|| (result * sign > LONG_MAX / 10))
-		{
-			return (LONG_MAX);
-		}
-		if (((result * sign == LONG_MIN / 10)
-				&& ((nptr[i] - '0') * sign <= LONG_MIN % 10))
-			|| (result * sign < LONG_MIN / 10))
-		{
-			return (LONG_MIN);
-		}
-		result = result * 10 + (nptr[i] - '0');
-		i++;
 	}
-	return (result * sign);
+	else
+	{
+		return (0);
+	}
 }
 
-int	ft_atoi(char *nptr)
+long	ft_long(const char *str, int sign)
 {
+	long	num;
 	size_t	i;
-	int		sign;
-	int		num;
 
+	num = 0;
 	i = 0;
-	sign = 1;
-	while (ft_isspace(nptr[i]) == 1)
-		i++;
-	if (nptr[i] == '+' || nptr[i] == '-')
+	while ('0' <= str[i] && str[i] <= '9' && str[i] != '\0')
 	{
-		if (nptr[i] == '-')
-			sign = -1;
+		if (sign == 1)
+		{
+			if ((num == LONG_MAX / 10 && str[i] > LONG_MAX % 10 + '0')
+				|| (num > LONG_MAX / 10))
+				return (LONG_MAX);
+		}
+		else
+		{
+			if ((-1 * num == LONG_MIN / 10 && -1
+					* (str[i] - '0') < (LONG_MIN % 10))
+				|| (-1 * num < LONG_MIN / 10))
+				return (LONG_MIN);
+		}
+		num *= 10;
+		num += str[i] - '0';
 		i++;
 	}
-	num = (int)ft_check_intlong(nptr, sign, i);
-	return (num);
+	return (sign * num);
+}
+
+int	ft_atoi(const char *str)
+{
+	int				i;
+	int				is_negative;
+
+	is_negative = 1;
+	i = 0;
+	while (str[i] != '\0' && ft_isspace(str[i]))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			is_negative *= -1;
+		i++;
+	}
+	return (ft_long(&str[i], is_negative));
 }

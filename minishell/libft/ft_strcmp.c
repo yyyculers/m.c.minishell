@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 15:25:30 by ychiba            #+#    #+#             */
-/*   Updated: 2023/06/16 21:55:25 by ychiba           ###   ########.fr       */
+/*   Created: 2024/04/23 16:58:29 by ktakamat          #+#    #+#             */
+/*   Updated: 2024/04/23 17:01:46 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-int	ft_putstr(char *s)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	int		count;
-	size_t	i;
-
-	i = 0;
-	if (s == NULL)
-		return (0);
-	i = ft_strlen(s);
-	if (LONG_MAX < i)
-		return (-1);
-	count = write (1, s, ft_strlen(s));
-	return (count);
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*(const unsigned char *)s1 - *(const unsigned char *)s2);
 }

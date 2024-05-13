@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: machi <machi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/21 11:37:08 by ychiba            #+#    #+#             */
-/*   Updated: 2023/05/29 15:26:56 by ychiba           ###   ########.fr       */
+/*   Created: 2023/05/20 12:56:40 by machi             #+#    #+#             */
+/*   Updated: 2023/05/25 16:34:56 by machi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,20 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int		i;
-	char	*s1;
+	char	*a;
 
-	s1 = (char *)s;
-	i = ft_strlen(s1);
-	if (c == 0)
-		return (&s1[i]);
-	while (i >= 0)
+	a = NULL;
+	while (*s)
 	{
-		if (s1[i] == (char)c)
-			return (&s1[i]);
-		i--;
+		if (*s == (unsigned char)c)
+		{
+			a = (char *)s;
+		}
+		s++;
 	}
-	return (0);
+	if (c == 0)
+	{
+		return ((char *)s);
+	}
+	return (a);
 }
-
-// int	main()
-// {
-// 	char	*str;
-
-// 	str = ft_strrchr("AABadcyadgcyd", 'd' - 256);
-// 	printf("%s\n", str);
-// 	printf("%s\n", strrchr("AABadcyadgcyd", 'd' - 256));
-// 	return (0);
-// }

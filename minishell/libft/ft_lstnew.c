@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_listnew.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 19:04:05 by ychiba            #+#    #+#             */
-/*   Updated: 2023/06/04 14:58:27 by ychiba           ###   ########.fr       */
+/*   Created: 2023/05/31 23:22:00 by machi             #+#    #+#             */
+/*   Updated: 2024/04/25 20:12:51 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list	*newlst;
+	t_list	*list;
 
-	newlst = (t_list *)malloc(sizeof (t_list));
-	if (newlst == 0)
-		return (NULL);
-	newlst ->content = content;
-	newlst ->next = NULL;
-	return (newlst);
+	list = malloc(sizeof(*list));
+	if (list == NULL)
+	{
+		ft_exit();
+	}
+	list->content = content;
+	list->next = NULL;
+	return (list);
 }

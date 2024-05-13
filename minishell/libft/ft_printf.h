@@ -3,37 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 17:12:09 by ychiba            #+#    #+#             */
-/*   Updated: 2023/06/14 13:20:13 by ychiba           ###   ########.fr       */
+/*   Created: 2023/06/28 15:43:51 by machi             #+#    #+#             */
+/*   Updated: 2024/04/25 19:51:39 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <stdarg.h>
 # include <unistd.h>
-# include <stdlib.h>
-# include <limits.h>
-# include <string.h>
-# include <stdio.h>
+# include <stdarg.h>
 # include <stdint.h>
+# include <limits.h>
+# include <stdio.h>
 
-int		ft_putchar(int c);
-int		ft_putnbr(int n);
-int		ft_putnbr(int n);
-int		ft_putstr(char *s);
-int		ft_put_uint(int n);
-int		ft_print_int(int d);
-int		ft_print_uint(unsigned int u);
-int		ft_printchar(int c);
-int		ft_printstring(char *s);
-int		ft_print_address(void *ptr);
-int		ft_print_lowerhexa(unsigned int nmb);
-int		ft_print_upperhexa(unsigned int nmb);
-int		ft_printf(const char *fmt, ...);
-size_t	ft_strlen(const char *s);
+int	ft_print_char(char c);
+int	ft_print_str(char *str);
+int	ft_print_nbr(int n);
+int	ft_print_unbr(unsigned int n);
+int	ft_print_hex(unsigned int n, const char format);
+int	ft_print_ptr(unsigned long long ptr);
+
+int	ft_printf(const char *format, ...);
 
 #endif

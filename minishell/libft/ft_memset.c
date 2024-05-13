@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: machi <machi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 20:04:30 by ychiba            #+#    #+#             */
-/*   Updated: 2023/06/05 16:27:24 by ychiba           ###   ########.fr       */
+/*   Created: 2023/05/18 19:13:51 by ktakamat          #+#    #+#             */
+/*   Updated: 2023/06/15 10:27:47 by machi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,13 @@
 
 void	*ft_memset(void *s, int c, size_t n)
 {
-	size_t			i;
-	unsigned char	*s1;
+	size_t	i;
 
-	if (s == NULL)
-		return (NULL);
 	i = 0;
-	s1 = (unsigned char *)s;
 	while (i < n)
 	{
-		s1[i] = c;
+		*(unsigned char *)(s + i) = (unsigned char)c;
 		i++;
 	}
 	return (s);
 }
-
-// #include <stdio.h>
-// 
-// int	main(void)
-// {
-// 	char	str[7] = "adagvs";
-// 	char	str2[7] = "adagvs";
-
-// 	ft_memset(str, 99, 5);
-// 	printf("%s\n", str);
-// 	memset(str2, 99, 5);
-// 	printf("%s\n", str2);
-// 	return (0);
-// }

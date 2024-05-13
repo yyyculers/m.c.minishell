@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   ft_print_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/04 13:56:18 by ychiba            #+#    #+#             */
-/*   Updated: 2024/03/04 13:56:34 by ychiba           ###   ########.fr       */
+/*   Created: 2023/06/28 14:42:12 by machi             #+#    #+#             */
+/*   Updated: 2024/04/25 19:52:39 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isspace(char a)
+#include "ft_printf.h"
+
+void	ft_putchar(char c)
 {
-	if ((9 <= a && a <= 13) || a == 32)
-		return (1);
-	return (0);
+	write(1, &c, 1);
+}
+
+int	ft_print_char(char c)
+{
+	int	count;
+
+	count = 0;
+	ft_putchar(c);
+	count++;
+	return (count);
 }

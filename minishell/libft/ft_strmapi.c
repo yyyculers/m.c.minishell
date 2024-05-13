@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 17:49:52 by ychiba            #+#    #+#             */
-/*   Updated: 2023/06/01 17:49:52 by ychiba           ###   ########.fr       */
+/*   Created: 2023/05/30 18:37:56 by ktakamat          #+#    #+#             */
+/*   Updated: 2024/04/25 20:14:04 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,24 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned int	i;
 	char			*str;
+	unsigned int	i;
 
-	if (s == NULL)
-		return (NULL);
-	i = 0;
-	str = (char *)malloc((ft_strlen(s) + 1) * sizeof(char));
-	if (str == NULL)
-		return (NULL);
-	while (s[i] != '\0')
+	if (s == NULL || f == NULL)
 	{
-		str[i] = f (i, s[i]);
+		return (NULL);
+	}
+	str = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (str == NULL)
+	{
+		ft_exit();
+	}
+	i = 0;
+	while (i < ft_strlen(s))
+	{
+		str[i] = f(i, s[i]);
 		i++;
 	}
 	str[i] = '\0';
 	return (str);
 }
-
-/*
-char to_uppercase(unsigned int index, char c)
-{
-    if (c >= 'a' && c <= 'z')
-    {
-        return c - 32; // 小文字を大文字に変換
-    }
-    return c; // その他の文字は変換しない
-}
-
-
-int main()
-{
-    char *original = "Hello, World!";
-    char *result = ft_strmapi(original, to_uppercase);
-    printf("Original: %s\n", original);
-    printf("Result: %s\n", result);
-    free(result); 
-    return 0;
-}
-*/

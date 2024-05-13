@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 19:52:55 by ychiba            #+#    #+#             */
-/*   Updated: 2023/05/29 16:54:16 by ychiba           ###   ########.fr       */
+/*   Created: 2023/05/18 19:08:32 by ktakamat          #+#    #+#             */
+/*   Updated: 2023/05/23 18:34:56 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,26 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t	n_len;
+	size_t	i;
 
-	n_len = ft_strlen(needle);
-	if (haystack == 0)
-		return (NULL);
-	if (n_len == 0)
-		return ((char *)haystack);
-	while (*haystack != '\0' && len >= n_len)
+	if (*(needle) == '\0')
 	{
-		if (*haystack == *needle && ft_memcmp(haystack, needle, n_len) == 0)
-		{
-			return ((char *)haystack);
-		}
-		haystack++;
-		len--;
+		return ((char *)haystack);
 	}
-	return (0);
+	while (len-- > 0)
+	{
+		i = 0;
+		while (haystack[i] == needle[i])
+		{
+			if (needle[i + 1] == '\0')
+				return ((char *)haystack);
+			if (i >= len)
+				return (NULL);
+			i++;
+		}
+		if (haystack[i] == '\0')
+			return (NULL);
+		haystack++;
+	}
+	return (NULL);
 }
-
-// int	main()
-// {
-// 	char	*a;
-// 	char	*b;
-
-// 	a = ft_strnstr("Lick alike soccer", "like", 17);
-// 	b = strnstr("Lick alike soccer", "like", 17);
-// 	printf("%s\n", a);
-// 	printf("%s\n", b);
-// 	return (0);
-// }

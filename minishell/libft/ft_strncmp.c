@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/20 19:19:07 by ychiba            #+#    #+#             */
-/*   Updated: 2023/06/05 16:42:32 by ychiba           ###   ########.fr       */
+/*   Created: 2023/05/17 21:38:09 by ktakamat          #+#    #+#             */
+/*   Updated: 2023/06/14 19:06:11 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,20 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
+	unsigned char	*a;
+	unsigned char	*b;
 
-	i = 0;
-	while (i < n)
+	a = (unsigned char *)s1;
+	b = (unsigned char *)s2;
+	while (n && *a == *b && *a && *b)
 	{
-		if (s1[i] != s2[i] || s1[i] == '\0')
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
+		a++;
+		b++;
+		--n;
+	}
+	if (n)
+	{
+		return (*a - *b);
 	}
 	return (0);
 }
-
-// int	main()
-// {
-// 	int	a;
-// 	int	b;
-// 	int	c;
-// 	int	d;
-
-// 	a = ft_strncmp("libft-test-tokyo", "l", 3);
-// 	b = strncmp("libft-test-tokyo", "l", 4);
-// 	c = ft_strncmp("abc", "ab", 4);
-// 	d = strncmp("abc", "abcd", 4);
-// 	printf("%d\n", a);
-// 	printf("%d\n", b);
-// 	printf("%d\n", c);
-// 	printf("%d\n", d);
-// 	return (0);
-// }

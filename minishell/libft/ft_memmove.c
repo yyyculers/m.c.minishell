@@ -3,47 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: machi <machi@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/21 15:34:04 by ychiba            #+#    #+#             */
-/*   Updated: 2023/06/05 16:31:56 by ychiba           ###   ########.fr       */
+/*   Created: 2023/05/21 10:58:49 by ktakamat          #+#    #+#             */
+/*   Updated: 2023/05/25 00:15:36 by machi            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(const void *dst, const void *src, size_t len)
 {
-	size_t			i;
+	size_t	i;
 
 	if (dst == NULL && src == NULL)
-		return (NULL);
-	i = 0;
-	if (src < dst)
 	{
-		i = len;
-		while (i--)
+		return (0);
+	}
+	i = 0;
+	if ((size_t)dst - (size_t)src < len)
+	{
+		i = len - 1;
+		while (i < len)
 		{
 			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+			i--;
 		}
 	}
 	else
 	{
-		i = 0;
 		while (i < len)
 		{
 			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
 			i++;
 		}
 	}
-	return (dst);
+	return ((void *)dst);
 }
-
-// int	main(void)
-// {
-// 	char	dst[] = "abcdef";
-
-// 	printf("%s(ft_memmove)   %s(memmove)\n",
-// 		ft_memmove(dst, dst + 2, 7), memmove(dst, dst + 2, 7));
-// 	return (0);
-// }

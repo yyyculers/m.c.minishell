@@ -6,7 +6,7 @@
 /*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:29:08 by ychiba            #+#    #+#             */
-/*   Updated: 2024/05/13 17:32:06 by ktakamat         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:06:52 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int	main_loop(void)
 			free(line);
 			continue ;
 		}
-		args->argv = minishell_split(line);
+		args->argv = token_list(line);
 		status = execute_com(args);
 		if (status != 1)
 			break ;
@@ -170,3 +170,126 @@ int	main(int argc, char **argv, char **envp)
     }
 	return (status);
 }
+
+char	*get_pass(char	*line)
+{
+	char	path[PATH_MAX];
+	char	*str;
+	char	*end;
+	char	*copy;
+
+	str = getenv("PATH");
+	while (*str)
+	{
+		bzero(path, PATH_MAX);
+		end = ft_strchr(str, ':');
+		if (end)
+			ft_strncpy(path, str, end - str);
+		else
+			ft_strlcpy(path, str, PATH_MAX);
+		ft_strlcat(path, "/", PATH_MAX);
+		ft_strlcat(path, line, PATH_MAX);
+		if (access(path, X_OK) == 0)
+		{
+			copy = ft_strdup(path);
+			if (copy == NULL)
+				return (NULL);
+			return (copy);
+		}
+		if (end == NULL)
+			return (NULL);
+		str = end + 1;
+	}
+	return (NULL);
+}
+
+int	token_count(t_token *token)
+{
+	t_token	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = token;
+	while (tmp != NULL)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
+char	**token_list(t_token *token)
+{
+	int		i;
+	char	**args;
+
+	i = 0;
+	i = token_count(token);
+	args = calloc(i + 1, sizeof(char *));
+	if (!args)
+		ft_error();
+	i = 0;
+	while (token->next != NULL)
+	{
+		args[i] = ft_strdup(token->str);
+		i++;
+		token = token->next;
+	}
+	return (args);
+}
+
+// int	main(int argc, char **argv, char **env)
+// {
+// 	char	*line;
+// 	char	**args;
+// 	t_token	*token;
+// 	t_env	*enve;
+// 	pid_t	pid;
+// 	int		status;
+// 	char	*path;
+
+// 	// enve = env_init(env);
+// 	using_history();
+// 	while (true)
+// 	{
+// 		line = readline("> ");
+// 		if (!line)
+// 			break ;
+// 		if (line)
+// 		{
+// 			add_history(line);
+// 			path = get_pass(line);
+// 			token = lexer(line);
+// 			// node = parser(token);
+// 			expand(token);
+// 			pid = fork();
+// 			if (pid < 0)
+// 			{
+// 				perror("fork");
+// 				exit(0);
+// 			}
+// 			else if (pid == 0)
+// 			{
+// 				args = token_list(token);
+// 				if (!path)
+// 				{
+// 					args++;
+// 					while (*args != '\0')
+// 					{
+// 						ft_printf("%s\n",*args);
+// 						args++;
+// 					}
+// 				}
+// 				else if (execve(path, args, env) == -1)
+// 				{
+// 					perror("execve");
+// 					exit(0);
+// 				}
+// 			}
+// 				else
+// 					wait(&status);
+// 			free(line);
+// 		}
+// 	}
+// 	exit(0);
+// }

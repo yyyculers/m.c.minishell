@@ -6,13 +6,15 @@
 /*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:17:06 by ychiba            #+#    #+#             */
-/*   Updated: 2024/05/13 17:27:15 by ktakamat         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:33:32 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "./builtin.h"
+# include "./parser.h"
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -43,12 +45,6 @@ TK_GREAT,
 TK_DGREAT
 }	t_token_kind;
 
-typedef struct s_env
-{
-	char	*name;
-	char	*content;
-	struct t_env	*next;
-}	t_env;
 
 typedef struct s_token
 {
@@ -66,19 +62,6 @@ typedef struct s_split
 	char	**result;
 }	t_split;
 
-typedef struct s_args
-{
-	int		argc;
-	char	**argv;
-}	t_args;
-
-int		execute_com(t_args	*args);
-int		exe_exit(t_args *args);
-int		exe_chdir(t_args *args);
-int		exe_pwd(t_args *args);
-int		exe_echo(t_args args);
-int		exe_env(void);
-char	**minishell_split(char *s);
 t_token	*lexer(char *line);
 t_token	*split_word(char **tmp, char *line);
 t_token	*split_dquote(char **tmp, char *line);

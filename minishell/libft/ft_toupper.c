@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/21 11:37:05 by ychiba            #+#    #+#             */
-/*   Updated: 2023/05/21 11:43:40 by ychiba           ###   ########.fr       */
+/*   Created: 2023/05/17 19:15:34 by ktakamat          #+#    #+#             */
+/*   Updated: 2023/05/21 20:40:15 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_toupper(int c)
 {
-	if ('a' <= c && c <= 'z')
+	if (c >= 'a' && c <= 'z')
 	{
-		c += 'A' - 'a';
+		c -= 32;
 	}
 	return (c);
 }

@@ -4,6 +4,9 @@ RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES_DIR = ./includes
 BUILTIN_DIR = ./srcs/built_in
+LEXER_DIR = ./srcs/lexer
+PASER_DIR = ./srcs/paser
+PIPEREDIRECT_DIR = ./srcs/pipe_redirect
 
 SRCS = srcs/main.c \
 	   srcs/minishell_split.c \
@@ -13,6 +16,9 @@ SRCS = srcs/main.c \
 	   $(BUILTIN_DIR)/commands.c \
 	   $(BUILTIN_DIR)/echo.c \
 	   $(BUILTIN_DIR)/env.c \
+	   $(LEXER_DIR)/lexer.c \
+	   $(PARSER_DIR)/parser.c \
+	   
 
 OBJS = $(SRCS:%.c=%.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ychiba <ychiba@student.42tokyo.jp>         +#+  +:+       +#+        */
+/*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/21 11:50:09 by ychiba            #+#    #+#             */
-/*   Updated: 2023/05/29 16:12:32 by ychiba           ###   ########.fr       */
+/*   Created: 2023/05/17 20:14:14 by ktakamat          #+#    #+#             */
+/*   Updated: 2024/04/18 18:36:35 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,26 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	char			*ptr;
+	unsigned char	uc;
+	size_t			len;
+	size_t			i;
 
+	if (!s)
+		return (NULL);
+	ptr = NULL;
+	uc = (unsigned char)c;
+	len = ft_strlen(s);
 	i = 0;
-	while (s[i] != '\0')
+	while (i <= len)
 	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
+		if (*s == uc)
+		{
+			ptr = (char *)(s);
+			return (ptr);
+		}
+		s++;
 		i++;
 	}
-	if (c == '\0')
-		return ((char *)&s[i]);
-	return (0);
+	return (ptr);
 }
-
-// int	main()
-// {
-// 	char	*a;
-// 	char	*b;
-
-// 	a = ft_strchr("ascavhdfchtdf", '\0');
-// 	b = strchr("ascavhdfchtdf", '\0');
-// 	printf("%s\n", a);
-// 	printf("%s\n", b);
-// 	return (0);
-// }
