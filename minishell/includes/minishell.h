@@ -6,7 +6,7 @@
 /*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 17:17:06 by ychiba            #+#    #+#             */
-/*   Updated: 2024/05/13 20:33:32 by ktakamat         ###   ########.fr       */
+/*   Updated: 2024/05/24 22:21:50 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # include <sys/stat.h> 
 
 # define MAX_SIZE 100
+#define MAX_HISTORY_SIZE 100
+#define NODE_PIPE 1
 
 typedef enum e_token_kind
 {
@@ -50,7 +52,10 @@ typedef struct s_token
 {
 	t_token_kind kind;
 	struct s_token	*next;
+	// struct s_token	*prev;
 	char	*str;
+	char		*line;
+	// size_t		n_pipe;
 }	t_token;
 
 typedef struct s_split
@@ -61,6 +66,7 @@ typedef struct s_split
 	int		k;
 	char	**result;
 }	t_split;
+
 
 t_token	*lexer(char *line);
 t_token	*split_word(char **tmp, char *line);
@@ -75,5 +81,15 @@ void	remove_squote(t_token *token);
 void	expand(t_token *token);
 void	ft_error(void);
 void	remove_dquote(t_token *token);
+char	**token_list(t_token *token);
+void	parse_tokens(t_token *tokens);
+char	*get_pass(char	*line);
+int	token_count(t_token *token);
+char	**token_list(t_token *token);
+void	use_history(const char *line);
+char	**parse_pipeline(char *line);
+t_parser	*parser(t_token *tokens);
+void	check_pipe(t_parser *parser, t_args *args);
+
 
 #endif // MINISHELL_H

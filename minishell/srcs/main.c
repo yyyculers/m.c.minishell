@@ -6,7 +6,7 @@
 /*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:29:08 by ychiba            #+#    #+#             */
-/*   Updated: 2024/05/13 20:06:52 by ktakamat         ###   ########.fr       */
+/*   Updated: 2024/05/24 21:07:39 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	handle_sigint(int sig)
 {
 	(void)sig;
 	write(STDOUT_FILENO, "\n", 1);
-	rl_replace_line("", 0);
+	// rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
@@ -75,8 +75,8 @@ t_env	*set_env_list(char **envp)
 		}
 		if (tail)
 		{
-            tail->next = new_node;
-            new_node->prev = tail;
+			tail->next = new_node;
+			new_node->prev = tail;
 		}
 		else
 			head = new_node;
@@ -108,7 +108,9 @@ void	ft_free_args(t_args *args)
 
 int	main_loop(void)
 {
+	t_token	*token;
 	t_args	*args;
+	t_parser	*node;
 	char	*line;
 	int		status;
 
@@ -125,16 +127,20 @@ int	main_loop(void)
 		}
 		if (ft_strlen(line) > 0)
 			add_history(line);
+		token = lexer(line);
+		expand(token);
+		node = parser(token);
 		args = malloc(sizeof(t_args));
 		if (!args)
 		{
 			free(line);
 			continue ;
 		}
-		args->argv = token_list(line);
-		status = execute_com(args);
-		if (status != 1)
-			break ;
+		// args->argv = node->cmd;
+		// status = execute_com(args);
+		// if (status != 1)
+		// 	break ;
+		check_pipe(node, args);
 		free(line);
 		ft_free_args(args);
 	}
@@ -148,27 +154,6 @@ void print_env_list(t_env *env_list)
         printf("Env Name: %s, Env Value: %s\n", current->env_name, current->env_val);
         current = current->next;
     }
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	int		status;
-	// int		i = 0;
-	(void)argc;
-	(void)argv;
-	status = 0;
-	t_env *env_list = set_env_list(envp);
-	status = main_loop();
-    print_env_list(env_list);
-    while (env_list)
-	{
-        t_env *next = env_list->next;
-        free(env_list->env_name);
-        free(env_list->env_val);
-        free(env_list);
-        env_list = next;
-    }
-	return (status);
 }
 
 char	*get_pass(char	*line)
@@ -229,27 +214,62 @@ char	**token_list(t_token *token)
 	if (!args)
 		ft_error();
 	i = 0;
-	while (token->next != NULL)
+	while (token != NULL)
 	{
 		args[i] = ft_strdup(token->str);
+		printf("kaisyuusan%s\n", args[i]);
 		i++;
 		token = token->next;
 	}
 	return (args);
 }
 
+void	use_history(const char *line)
+{
+	static int	history_index = 0;
+	if (line[0] != '\0')
+	{
+		add_history(line);
+		history_index++;
+	}
+	if (history_index >= MAX_HISTORY_SIZE)
+	{
+		remove_history(0);
+		history_index--;
+	}
+}
+
+int main(int argc, char **argv, char **envp)
+{
+	(void)argc;
+	(void)argv;
+	t_env *env_list = set_env_list(envp);
+	main_loop();
+	while (env_list)
+	{
+		t_env *next = env_list->next;
+		free(env_list->env_name);
+		free(env_list->env_val);
+		free(env_list);
+		env_list = next;
+	}
+	exit(0);
+}
+
+
 // int	main(int argc, char **argv, char **env)
 // {
 // 	char	*line;
 // 	char	**args;
 // 	t_token	*token;
-// 	t_env	*enve;
+// 	// t_env	*enve;
 // 	pid_t	pid;
 // 	int		status;
 // 	char	*path;
-
+	
+// 	(void)argc;
+// 	(void)argv;
 // 	// enve = env_init(env);
-// 	using_history();
 // 	while (true)
 // 	{
 // 		line = readline("> ");
@@ -257,7 +277,8 @@ char	**token_list(t_token *token)
 // 			break ;
 // 		if (line)
 // 		{
-// 			add_history(line);
+			
+// 			use_history(line);
 // 			path = get_pass(line);
 // 			token = lexer(line);
 // 			// node = parser(token);
@@ -293,3 +314,27 @@ char	**token_list(t_token *token)
 // 	}
 // 	exit(0);
 // }
+
+
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	int		status;
+// 	// int		i = 0;
+// 	(void)argc;
+// 	(void)argv;
+// 	status = 0;
+// 	t_env *env_list = set_env_list(envp);
+// 	status = main_loop();
+//     print_env_list(env_list);
+//     while (env_list)
+// 	{
+//         t_env *next = env_list->next;
+//         free(env_list->env_name);
+//         free(env_list->env_val);
+//         free(env_list);
+//         env_list = next;
+//     }
+// 	return (status);
+// }
+
+

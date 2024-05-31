@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chdir.c                                            :+:      :+:    :+:   */
+/*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 18:02:04 by ychiba            #+#    #+#             */
-/*   Updated: 2024/05/25 20:41:10 by ktakamat         ###   ########.fr       */
+/*   Created: 2024/05/16 17:30:01 by ktakamat          #+#    #+#             */
+/*   Updated: 2024/05/16 17:30:24 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-int	exe_chdir(t_args *args)
+char	*ft_strtok(char *str, const char delim)
 {
-	if (args->argv[1] == NULL)
-		printf("minishell: cd requires an argument\n");
-	else
+	static char		*stock = NULL;
+	char			*ptr;
+	int				flg;
+
+	flg = 0;
+	ptr = NULL;
+	if (str != NULL)
+		stock = ft_strdup(str);
+	while (*stock != '\0')
 	{
-		if (chdir(args->argv[1]) != 0)
-			perror("minishell");
+		if (flg == 0 && *stock != delim)
+		{
+			flg = 1;
+			ptr = stock;
+		}
+		else if (flg == 1 && *stock == delim)
+		{
+			*stock = '\0';
+			stock += 1;
+			break ;
+		}
+		stock += 1;
 	}
-	return (1);
+	return (ptr);
 }

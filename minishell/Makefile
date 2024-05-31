@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -Werror
 INCLUDES_DIR = ./includes
 BUILTIN_DIR = ./srcs/built_in
 LEXER_DIR = ./srcs/lexer
-PASER_DIR = ./srcs/paser
+PARSER_DIR = ./srcs/parser
 PIPEREDIRECT_DIR = ./srcs/pipe_redirect
 
 SRCS = srcs/main.c \
@@ -18,6 +18,8 @@ SRCS = srcs/main.c \
 	   $(BUILTIN_DIR)/env.c \
 	   $(LEXER_DIR)/lexer.c \
 	   $(PARSER_DIR)/parser.c \
+	   $(PIPEREDIRECT_DIR)/pipe.c \
+	   $(PIPEREDIRECT_DIR)/redirect.c \
 	   
 
 OBJS = $(SRCS:%.c=%.o)

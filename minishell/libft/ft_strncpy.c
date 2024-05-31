@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 17:41:35 by ktakamat          #+#    #+#             */
-/*   Updated: 2024/05/13 17:31:01 by ktakamat         ###   ########.fr       */
+/*   Created: 2024/05/14 15:58:18 by ktakamat          #+#    #+#             */
+/*   Updated: 2024/05/14 20:13:36 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
+char	*ft_strncpy(char *dest, char *src, int n)
+{
+	int	i;
 
-void parse_tokens(t_token *tokens)
- {
-
-    while (tokens != NULL) 
-    {
-        printf("%s ", tokens->str);
-        tokens = tokens->next;
-    }
-    printf("\n");
+	i = 0;
+	while (src[i] != '\0' && i < n)
+	{
+		dest[i] = src[i];
+		++i;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }
