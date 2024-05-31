@@ -6,7 +6,7 @@
 /*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:49:41 by ychiba            #+#    #+#             */
-/*   Updated: 2024/05/24 21:39:13 by ktakamat         ###   ########.fr       */
+/*   Updated: 2024/05/31 16:14:31 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int	execute_com(t_args	*args)
 		args->argv[0] = "/usr/bin/grep";
 		return (execve(args->argv[0], args->argv, NULL));
 	}
-	// if (ft_strncmp(args->argv[0], "ls", 3) == 0)
-	// {
-	// 	args->argv[0] = "/bin/ls";
-	// 	return (execve(args->argv[0], args->argv, NULL));
-	// }
+	if (ft_strncmp(args->argv[0], "ls", 3) == 0)
+	{
+		args->argv[0] = "/bin/ls";
+		return (execve(args->argv[0], args->argv, NULL));
+	}
 	return (1);
 }

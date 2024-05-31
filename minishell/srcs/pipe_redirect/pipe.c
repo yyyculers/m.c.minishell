@@ -6,7 +6,7 @@
 /*   By: ktakamat <ktakamat@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 20:49:19 by ktakamat          #+#    #+#             */
-/*   Updated: 2024/05/24 22:28:18 by ktakamat         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:55:16 by ktakamat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	check_pipe(t_parser *parser, t_args *args)
 	printf("cmd: %s\n", parser->cmd[0]);
 	if (parser->type == PIPE)
 	{
-		printf("pipe\n");
+		printf("apipe\n");
 		pipe_line(parser, args);
 	}
 	else
