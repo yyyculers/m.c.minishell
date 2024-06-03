@@ -6,7 +6,7 @@
 /*   By: ychiba <ychiba@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 16:29:08 by ychiba            #+#    #+#             */
-/*   Updated: 2024/06/02 23:09:03 by ychiba           ###   ########.fr       */
+/*   Updated: 2024/06/03 21:41:51 by ychiba           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,10 @@ int	main_loop(void)
 			free(line);
 			continue ;
 		}
-		// args->argv = node->cmd;
-		// status = execute_com(args);
-		// if (status != 1)
-		// 	break ;
+		args->argv = node->cmd;
+		status = execute_com(args);
+		if (status != 1)
+			break ;
 		check_pipe(node, args);
 		free(line);
 		ft_free_args(args);
